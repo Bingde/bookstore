@@ -1,7 +1,6 @@
 @if ($paginator->hasPages())
 
 <style <style type="text/css" media="screen">
-/*
 	.pagination >li {
 		padding:20px;
 	}
@@ -11,7 +10,6 @@
 		list-style-type: none;
 	    display: inline-flex;
  	}	
-*/
 </style>
     <ul class="pagination" role="navigation">
         {{-- Previous Page Link --}}
