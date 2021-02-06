@@ -10,10 +10,22 @@ class SongController extends Controller
 {
     
    public function index()	{
-	   
-	   $data = new SongsCollection(Song::all());
-	   
-	   return $data;
+	   //the the number of songs from the song model
+	  $count = Song::all()->count();
+/*
+	  $data = new SongsCollection(Song::all());
+	  $meta = $data->toJson();
+	  dd($meta);
+*/
+	  // get the collections of the songs 	  
+	  $data = (new SongsCollection(Song::paginate(5)))->additional(['meta' => [
+      'count' => $count,]]);
+	  
+     // Verify the additional variable be passed in the object	  
+	  $count1 = data_get($data, 'additional.meta.count'); //10
+	  //dd($count1);
+	  
+      return view('songs', ['datas' => $data,'numbersong' => $count]);
     }
     
     public function single($song){

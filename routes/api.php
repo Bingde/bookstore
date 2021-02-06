@@ -19,21 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-/*
-Route::get('/songs/{song}', function(Song $song) {
-    //return new SongResource($song);
-    
-    return (new SongResource($song))->additional([
-    'meta'=>['anything'=>'my cool data'
-    ]
-    ]);
-   
-});
-*/
-
-
 Route::get('/songs/{song}', 'SongController@single');
-
 
 // Route::get('/home', 'HomeController@index');
 Route::get('/songs', 'SongController@index');

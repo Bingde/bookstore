@@ -14,23 +14,8 @@ class SongsCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-
-	   //$data = ($this->collection)->toJson();
-	   //var_dump($data);
-	  // print_r($data);
-	   //dd($data);
-	  // var_dump($data);
-	   //dd($data);
-	   
-/*	   $data = SongResource::collection($this->collection)->toJson();
-	   var_dump($data);
-	   var_dump('nice to see');	   
-	  
-*/
-       return [
-	        //           'data' => $this->collection,
+	 return [
             'data' => SongResource::collection($this->collection),
-            
             'meta' => ['song_count' => $this->collection->count()],
         ];    
         
@@ -38,4 +23,14 @@ class SongsCollection extends ResourceCollection
 // 		return ['name' => 'Abigail', 'state' => 'CA'];
 	//Return a object similar to a whole model table
     }
+    public function with($request)
+    {
+        return [
+	         'metawithcount' => [
+                'mycount' => '999',
+            ],
+//             'meta' =>['song_count' => $this->collection->count()],    
+            ];
+    }
+    
 }

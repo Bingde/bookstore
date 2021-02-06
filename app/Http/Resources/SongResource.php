@@ -21,11 +21,12 @@ class SongResource extends JsonResource
 	    print_r(Song::all());
 		die();
 */
-         return [
-        'id' => $this->id,
-        'title' => $this->title,
-        'rating' => $this->rating,
-        
-    ];
-    }
+		
+		        return [
+		        'id' => $this->id,
+		        'title' => $this->title,
+		        'rating' => $this->rating,
+		    ];
+		
+		    }
 }
