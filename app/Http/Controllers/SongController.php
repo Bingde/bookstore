@@ -11,20 +11,12 @@ class SongController extends Controller
     
    public function index()	{
 	   //the the number of songs from the song model
-	  $count = Song::all()->count();
-/*
-	  $data = new SongsCollection(Song::all());
-	  $meta = $data->toJson();
-	  dd($meta);
-*/
-	  // get the collections of the songs 	  
+	  $count = Song::all()->count();  
+	  //$data = Song::paginate(3);
+ 
 	  $data = (new SongsCollection(Song::paginate(5)))->additional(['meta' => [
       'count' => $count,]]);
-	  
-     // Verify the additional variable be passed in the object	  
-	  $count1 = data_get($data, 'additional.meta.count'); //10
-	  //dd($count1);
-	  
+      
       return view('songs', ['datas' => $data,'numbersong' => $count]);
     }
     
@@ -35,14 +27,21 @@ class SongController extends Controller
 	   $data = new SongResource(Song::find($song));
 	   return $data;
     }
+     public function store(Request $request)
+    {
+        $book = new Song();
+        $book->title = $request['title'];
+        $book->artist = $request['artist'];
+        $book->rating = $request['rating'];
+        $book->album_id = $request['album_id'];
+        
+        $result=  $book->save();
+        $count = Song::all()->count(); 
+        $data = (new SongsCollection(Song::paginate(5)))->additional(['meta' => [ 'count' => $count]]);
+
+      
+        return view('songs', ['datas' => $data,'numbersong' => $count]);
+    }
+
+    
 }
-/*
-  $data = Song::all()->toJson();
-  var_dump($data);
-  dd($data);
-  return (Song::all());
-  
-*/
-//return  SongResource::collection(Song::all());
-   
- //return new SongsCollection(Song::all());

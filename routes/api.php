@@ -23,6 +23,5 @@ Route::get('/songs/{song}', 'SongController@single');
 
 // Route::get('/home', 'HomeController@index');
 Route::get('/songs', 'SongController@index');
-
-
+Route::post('/songs', 'SongController@store');
 

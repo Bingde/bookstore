@@ -14,9 +14,9 @@
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+                color: black;
                 font-family: 'Raleway', sans-serif;
-                font-weight: 100;
+                font-weight: 800;
                 height: 100vh;
                 margin: 0;
             }
@@ -62,6 +62,17 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+/*            make defult pagination looks better */
+	.pagination >li {
+		padding:20px;
+	}
+	.pagination
+	{
+		padding-inline-start: 0px! important;
+		list-style-type: none;
+	    display: inline-flex;
+ 	}
+
         </style>
     </head>
     <body>
@@ -81,19 +92,19 @@
                 <div class="title m-b-md">
                     Songs
                 </div>
-                <?php $count = data_get($datas, 'additional.meta.count');
-	              //dd($count);
-	              ?>
+
               <table style="width:100%">
 					  <tr>
 					    <th>ID</th>
 					    <th>Title</th>
+					    <th>Artist</th>
 					    <th>RATING</th>
 					  </tr>
                  @foreach($datas as $data)
 				  		<tr>
 					    <td>{{$data->id}}</td>
 					    <td>{{$data->title}}</td>
+					    <td>{{$data->artist}}</td>
 					    <td>{{$data->rating}}</td>
 					  </tr>
 				 @endforeach
@@ -102,6 +113,25 @@
 					   {{ $datas->links('vendor.pagination.default') }}
 					</div>
 					<p style="background-color:white"></p>
+					<?php 
+	               // $count = data_get($datas, 'additional.meta.count');
+	                //dd($datas);
+	                $datas = json_encode($datas,true);
+	                 //dd($data);
+	                $datas = json_decode($datas);
+	               // dd($datas);
+	                foreach($datas->meta as $link){
+		              echo $link;
+	                }
+	                
+	              ?>
+	              
+	              @foreach($datas->meta as $link)
+				    <a>{{ $link}}</a>
+				  @endforeach
+				
+					@include('create')
+					 
 			        <div class="links" style="display:none">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
@@ -109,6 +139,8 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
+                
+                
             </div>
         </div>
     </body>
