@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\SongResource;
 use App\Http\Resources\SongsCollection;
 use App\Song;
+use DB;
 class SongController extends Controller
 {
     
@@ -14,7 +15,9 @@ class SongController extends Controller
 	  $count = Song::all()->count();  
 	  //$data = Song::paginate(3);
  
-	  $data = (new SongsCollection(Song::paginate(5)))->additional(['meta' => [
+	  $modelclass = Song::orderBy('rating','DESC')->paginate(5);
+	 
+	  $data = (new SongsCollection($modelclass))->additional(['meta' => [
       'count' => $count,]]);
       
       return view('songs', ['datas' => $data,'numbersong' => $count]);
@@ -42,6 +45,39 @@ class SongController extends Controller
       
         return view('songs', ['datas' => $data,'numbersong' => $count]);
     }
+
+  public function edit($id)
+    {
+      
+        $results = DB::select('select * from songs where id = :id', ['id' => $id]);
+        return view('edit', ['datas' => $results]);
+    }
+     public function update(Request $request)
+    {
+       
+        //dd($request);
+        $id= $request->id;
+
+        $book = Song::find($id);
+        $book->title = $request['title'];
+        $book->artist = $request['artist'];
+        $book->rating = $request['rating'];
+        $book->album_id = $request['album_id'];
+        
+        
+        $result=  $book->save();
+        
+        
+        $count = Song::all()->count(); 
+        $data = (new SongsCollection(Song::paginate(10)))->additional(['meta' => [ 'count' => $count]]);
+
+      
+        return view('edit', ['datas' => $data,'numbersong' => $count]);
+    }
+
+
+
+
 
     
 }

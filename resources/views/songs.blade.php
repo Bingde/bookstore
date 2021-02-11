@@ -99,6 +99,7 @@
 					    <th>Title</th>
 					    <th>Artist</th>
 					    <th>RATING</th>
+					    <th>Edit</th>
 					  </tr>
                  @foreach($datas as $data)
 				  		<tr>
@@ -106,6 +107,7 @@
 					    <td>{{$data->title}}</td>
 					    <td>{{$data->artist}}</td>
 					    <td>{{$data->rating}}</td>
+				  		<td><a href="/api/songs/{{$data->id}}/edit">Edit</td>
 					  </tr>
 				 @endforeach
 					</table>

@@ -24,4 +24,6 @@ Route::get('/songs/{song}', 'SongController@single');
 // Route::get('/home', 'HomeController@index');
 Route::get('/songs', 'SongController@index');
 Route::post('/songs', 'SongController@store');
+Route::get('/songs/{id}/edit', 'SongController@edit');
+Route::put('/songs/{id}', 'SongController@update');
 
