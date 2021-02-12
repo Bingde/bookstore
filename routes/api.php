@@ -26,4 +26,4 @@ Route::get('/songs', 'SongController@index');
 Route::post('/songs', 'SongController@store');
 Route::get('/songs/{id}/edit', 'SongController@edit');
 Route::put('/songs/{id}', 'SongController@update');
-
+Route::delete('/songs/{id}', 'SongController@destory');

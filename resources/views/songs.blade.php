@@ -100,6 +100,8 @@
 					    <th>Artist</th>
 					    <th>RATING</th>
 					    <th>Edit</th>
+					    <th>Delete</th>
+
 					  </tr>
                  @foreach($datas as $data)
 				  		<tr>
@@ -108,7 +110,14 @@
 					    <td>{{$data->artist}}</td>
 					    <td>{{$data->rating}}</td>
 				  		<td><a href="/api/songs/{{$data->id}}/edit">Edit</td>
-					  </tr>
+					  	<td>
+						  	<form  action="/api/songs/{{$data->id}}" method="post">
+							  	@csrf
+								@method('DELETE')
+								<input type="submit" value="delete " >
+							</form>
+						</td>
+						</tr>
 				 @endforeach
 					</table>
 				   <div class="pagination-bar text-center">

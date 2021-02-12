@@ -76,6 +76,25 @@ class SongController extends Controller
     }
 
 
+     public function destory($id)
+    {
+       
+        //dd($request);
+        
+// 		dd($id);
+
+        $book = Song::find($id);
+        $result=  $book->delete();
+       // dd($result);
+        
+        $count = Song::all()->count(); 
+        $data = (new SongsCollection(Song::paginate(10)))->additional(['meta' => [ 'count' => $count]]);
+
+      
+        return view('songs', ['datas' => $data,'numbersong' => $count]);
+    }
+
+
 
 
 
